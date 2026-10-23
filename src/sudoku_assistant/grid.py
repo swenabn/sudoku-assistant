@@ -20,3 +20,13 @@ def is_valid_placement(grid: np.ndarray, row: int, col: int, digit: int) -> bool
     ):
         return False
     return True
+
+
+def find_empty_cell(grid: np.ndarray) -> tuple[int, int] | None:
+    """Return (row,col) of the first empty cell, or None if the grid is full"""
+    empty_cells = grid == 0
+    if not np.any(empty_cells):
+        return
+    else:
+        row_first_empty, col_first_empty = np.argwhere(empty_cells > 0)[0]
+        return (row_first_empty, col_first_empty)

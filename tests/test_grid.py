@@ -1,6 +1,6 @@
 import numpy as np
 
-from sudoku_assistant.grid import box_start, is_valid_placement
+from sudoku_assistant.grid import box_start, find_empty_cell, is_valid_placement
 
 GRID = np.array(
     [
@@ -15,6 +15,8 @@ GRID = np.array(
         [0, 0, 0, 0, 8, 0, 0, 7, 9],
     ]
 )
+
+ONES_GRID = np.ones((9, 9))
 
 
 def test_box_start_first_box() -> None:
@@ -40,7 +42,7 @@ def test_rejects_digit_in_row() -> None:
 
 
 def test_rejects_digit_in_column() -> None:
-    assert not is_valid_placement(GRID, 0, 2, 8)
+    assert not is_valid_placement(GRID, 4, 1, 9)
 
 
 def test_rejects_digit_in_box() -> None:
@@ -49,3 +51,11 @@ def test_rejects_digit_in_box() -> None:
 
 def test_accepts_valid_digit() -> None:
     assert is_valid_placement(GRID, 2, 5, 4)
+
+
+def test_find_first_empty_cell() -> None:
+    assert find_empty_cell(GRID) == (0, 2)
+
+
+def test_find_full_grid() -> None:
+    assert find_empty_cell(ONES_GRID) is None
